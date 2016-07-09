@@ -35,7 +35,7 @@ class rnGesture extends Component {
               return (<Index navigator={nav} {...this.props} {...route.passProps} />);
               break;
           case 'TestPageOne':
-              return (<TestPageOne navigator={nav} {...this.props} {...route.passProps} />);
+              return (<TestPageOne navigator={nav} {...this.props} {...route.passProps} goTo={this.goTo.bind(this)} />);
               break;
           case 'TestPageTwo':
               return (<TestPageTwo navigator={nav} {...this.props} {...route.passProps} />);
@@ -53,11 +53,11 @@ class rnGesture extends Component {
     var navigationView = (
           <View style={styles.container}>
               <Text style={styles.menuTitle}>React Native</Text>
-              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'Index'})}><Text style={styles.menuText}>Index</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageOne'})}><Text style={styles.menuText}>TestPageOne</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'Index'})}><Text style={styles.menuText}>主页</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageOne'})}><Text style={styles.menuText}>Gesture Responder System</Text></TouchableHighlight>
               <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageTwo'})}><Text style={styles.menuText}>TestPageTwo</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageThree'})}><Text style={styles.menuText}>TestPageThree</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageFour'})}><Text style={styles.menuText}>TestPageFour</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageThree'})}><Text style={styles.menuText}>测试页面三</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.menuItem} underlayColor="#0a8acd" activeOpacity={1} onPress={() => this.goTo({id: 'TestPageFour'})}><Text style={styles.menuText}>测试页面四</Text></TouchableHighlight>
           </View>
     );
 
@@ -70,7 +70,7 @@ class rnGesture extends Component {
 
             <View style={styles.container}>
                 <Navigator
-                    initialRoute={{id:'Index'}}
+                    initialRoute={{id:'TestPageOne'}}
                     ref={((nav) => { global.nav = nav })}
                     renderScene={this.renderScene.bind(this)}
                     configureScene={(route) => {
