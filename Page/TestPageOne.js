@@ -4,7 +4,6 @@ import {
   Text,
   View,
   PanResponder,
-  Animated,
   Dimensions
 } from 'react-native';
 
@@ -45,7 +44,7 @@ export default class TestPageOne extends Component {
         locationX: e.nativeEvent.locationX,
         locationY: e.nativeEvent.locationY
     });
-    this.swipe(this.state.y, this.state.pageY);
+    this.swipe(this.state.x, this.state.pageX, this.state.y, this.state.pageY);
   }
 
   _onResponderGrant(e){
@@ -69,20 +68,34 @@ export default class TestPageOne extends Component {
   }
 
 
-  swipe(start, end){
-    if(start - end > 150){
+  swipe(startX, endX, startY, endY){
+    if(startY - endY > 150){
         this.setState({
             event: '你上拉了'
         });
         this.props.navigator.push({
             id: 'TestPageThree'
         });
-    }else if(end - start > 150){
+    }else if(endY - startY > 150){
         this.setState({
             event: '你下滑了'
         });
         this.props.navigator.push({
             id: 'TestPageFour'
+        });
+    }else if(endX - startX > 100){
+        this.setState({
+              event: '你右滑了'
+          });
+          this.props.navigator.push({
+              id: 'Index'
+          });
+    }else if(startX - endX > 100){
+        this.setState({
+            event: '你左滑了'
+        });
+        this.props.navigator.push({
+            id: 'TestPageTwo'
         });
     }else{
         this.setState({
