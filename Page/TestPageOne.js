@@ -50,41 +50,7 @@ export default class TestPageOne extends Component {
     });
 
     if(this.state.pageX == this.state.tx && this.state.pageY == this.state.ty){
-      // this.swipe(this.state.x, this.state.pageX, this.state.y, this.state.pageY);
-
-      if(this.state.y - this.state.pageY > 150){
-          this.setState({
-              event: '你上拉了'
-          });
-          this.props.navigator.push({
-              id: 'TestPageThree'
-          });
-      }else if(this.state.pageY - this.state.y > 150){
-          this.setState({
-              event: '你下滑了'
-          });
-          this.props.navigator.push({
-              id: 'TestPageFour'
-          });
-      }else if(this.state.pageX - this.state.x > 100){
-          this.setState({
-                event: '你右滑了'
-            });
-            this.props.navigator.push({
-                id: 'Index'
-            });
-      }else if(this.state.x - this.state.pageX > 100){
-          this.setState({
-              event: '你左滑了'
-          });
-          this.props.navigator.push({
-              id: 'TestPageTwo'
-          });
-      }else{
-          this.setState({
-              event: '无法响应你的操作'
-          });
-      }
+      this.swipe(this.state.x, this.state.pageX, this.state.y, this.state.pageY);
     }
 
 
