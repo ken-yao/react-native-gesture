@@ -31,24 +31,72 @@ export default class TestPageOne extends Component {
         pageX: e.nativeEvent.pageX,
         pageY: e.nativeEvent.pageY,
         locationX: e.nativeEvent.locationX,
-        locationY: e.nativeEvent.locationY
+        locationY: e.nativeEvent.locationY,
+        tx:e.nativeEvent.pageX,
+        ty:e.nativeEvent.pageY
     });
+
   }
 
   _onResponderRelease(e){
     // console.log('onResponderRelease');
     // console.log(e);
+
     this.setState({
         pageX: e.nativeEvent.pageX,
         pageY: e.nativeEvent.pageY,
         locationX: e.nativeEvent.locationX,
         locationY: e.nativeEvent.locationY
     });
-    this.swipe(this.state.x, this.state.pageX, this.state.y, this.state.pageY);
+
+    if(this.state.pageX == this.state.tx && this.state.pageY == this.state.ty){
+      // this.swipe(this.state.x, this.state.pageX, this.state.y, this.state.pageY);
+
+      if(this.state.y - this.state.pageY > 150){
+          this.setState({
+              event: '你上拉了'
+          });
+          this.props.navigator.push({
+              id: 'TestPageThree'
+          });
+      }else if(this.state.pageY - this.state.y > 150){
+          this.setState({
+              event: '你下滑了'
+          });
+          this.props.navigator.push({
+              id: 'TestPageFour'
+          });
+      }else if(this.state.pageX - this.state.x > 100){
+          this.setState({
+                event: '你右滑了'
+            });
+            this.props.navigator.push({
+                id: 'Index'
+            });
+      }else if(this.state.x - this.state.pageX > 100){
+          this.setState({
+              event: '你左滑了'
+          });
+          this.props.navigator.push({
+              id: 'TestPageTwo'
+          });
+      }else{
+          this.setState({
+              event: '无法响应你的操作'
+          });
+      }
+    }
+
+
   }
 
   _onResponderGrant(e){
     // console.log('onResponderGrant');
+    return false;
+  }
+
+  _onResponderReject(e){
+    return true;
   }
 
   _onStartShouldSetResponder(e){
@@ -56,14 +104,14 @@ export default class TestPageOne extends Component {
     // console.log(e);
     this.setState({
         x: e.nativeEvent.pageX,
-        y: e.nativeEvent.pageY
+        y: e.nativeEvent.pageY,
+        pageX: e.nativeEvent.pageX,
+        pageY: e.nativeEvent.pageY
     });
     return true;
   }
 
   _onMoveShouldSetResponder(e){
-    // console.log('onMoveShouldSetResponder')
-    // console.log(e);
     return true;
   }
 
@@ -110,11 +158,12 @@ export default class TestPageOne extends Component {
     return (
         <View style={styles.container}>
             <Text style={styles.welcome}>Gesture Responder System</Text>
-            <View 
+            <View
                 style={styles.responseZone}
                 onResponderMove={this._onResponderMove.bind(this)}
                 onResponderRelease={this._onResponderRelease.bind(this)}
                 onResponderGrant = {this._onResponderGrant.bind(this)}
+                onResponderReject= {this._onResponderReject.bind(this)}
                 onStartShouldSetResponder={this._onStartShouldSetResponder.bind(this)}
                 onMoveShouldSetResponder={this._onMoveShouldSetResponder.bind(this)}
             >
@@ -146,7 +195,7 @@ export default class TestPageOne extends Component {
 
             </View>
 
-            
+
       </View>
     );
   }
